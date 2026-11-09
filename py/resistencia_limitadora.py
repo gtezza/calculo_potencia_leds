@@ -227,3 +227,4 @@ if __name__ == "__main__":
     print(f"R teórica: {serie_res['r_teorica_ohmios']:.1f} Ω | R comercial: {serie_res['r_comercial_ohmios']:.1f} Ω")
     print(f"P disipada: {serie_res['p_resistencia_teorica_w']:.3f} W -> Potencia comercial: {serie_res['p_resistencia_comercial_w']} W")
     print(f"Eficiencia circuito: {serie_res['eficiencia_circuito_pct']:.1f}%")
+

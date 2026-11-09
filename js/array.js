@@ -132,3 +132,4 @@ function dibujarMatrizLedsSVG(datos, colorHex = "#e63946") {
 
   contenedor.innerHTML = svg;
 }
+

@@ -193,3 +193,4 @@ function dibujarEsquematicoCircuito(res, colorHex = "#e63946") {
 
   contenedor.innerHTML = svg;
 }
+

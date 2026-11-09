@@ -1,381 +1,391 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cálculo de Lúmenes, Potencia y Circuitos de LEDs</title>
-  <!-- Estilos del proyecto (Compatible con Chrome, Firefox, Brave y Edge) -->
+  <title>GT Data Consulting | Cálculo de Lúmenes, Potencia y Circuitos de LEDs</title>
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <!-- Fuentes Google: Inter (Tipografía oficial de GT Data Consulting) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Estilos GT Data Consulting (Compatible con Chrome, Firefox, Brave y Edge) -->
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-  <div class="contenedor-principal">
-    
-    <!-- ENCABEZADO PRINCIPAL -->
-    <header class="encabezado">
-      <div>
-        <h1>
-          <span>💡</span> Cálculo de Lúmenes, Potencia Radiada y Circuitos de LEDs
-        </h1>
-        <p>Conversión fotométrica, radiométrica, cálculo de resistencia limitadora y arreglos de LEDs (Clase 5)</p>
-      </div>
-      <div class="badge-modulo">Módulos: Pasos 1 y 2 • Evolutivo 1 • Evolutivo 2</div>
-    </header>
-
-    <!-- NAVEGACIÓN POR PESTAÑAS -->
-    <nav class="nav-pestanas">
-      <button class="tab-boton activo" data-tab="tab-individual">
-        <span>📍</span> LED Individual (Pasos 1 y 2)
-      </button>
-      <button class="tab-boton" data-tab="tab-circuito">
-        <span>⚡</span> Conexión y Resistencia Limitadora (Evolutivo 1)
-      </button>
-      <button class="tab-boton" data-tab="tab-array">
-        <span>🔲</span> Array / Matriz de LEDs (Evolutivo 2)
-      </button>
-    </nav>
-
-    <!-- ======================================================== -->
-    <!-- PESTAÑA 1: LED INDIVIDUAL (PASOS 1 Y 2) -->
-    <!-- ======================================================== -->
-    <div id="tab-individual" class="tab-contenido activo">
-      <div class="panel-grid">
-        
-        <!-- COLUMNA IZQUIERDA: ENTRADAS -->
-        <aside class="columna-entradas">
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Variables del LED Individual</span>
-              <span class="icono-paso">Entrada</span>
-            </div>
-
-            <!-- Selector de Preset o Carga Manual -->
-            <div class="grupo-control">
-              <label for="select-preset">Predefinidos de la Clase o Manual:</label>
-              <select id="select-preset"></select>
-              <p class="ayuda-texto">Puedes seleccionar un LED típico o modificar libremente cualquier variable.</p>
-            </div>
-
-            <!-- Intensidad en milicandelas (mcd) -->
-            <div class="grupo-control">
-              <label for="input-mcd">Intensidad Luminosa (I<sub>v</sub> en mcd):</label>
-              <input type="number" id="input-mcd" min="1" step="10" value="5000">
-              <p class="ayuda-texto">Ej: 5000 mcd para rojo 660 nm, 14000 mcd para azul 465 nm.</p>
-            </div>
-
-            <!-- Ángulo total de apertura (2θ) -->
-            <div class="grupo-control">
-              <label for="input-angulo">Ángulo Total de Apertura (2θ en grados):</label>
-              <div class="rango-con-input">
-                <input type="range" id="slider-angulo" min="5" max="140" step="1" value="30">
-                <input type="number" id="input-angulo" min="5" max="140" step="1" value="30">
-              </div>
-              <p class="ayuda-texto">Ángulo cónico de emisión (sale de la hoja de datos comercial).</p>
-            </div>
-
-            <!-- Longitud de onda (λ en nm) -->
-            <div class="grupo-control">
-              <label for="input-onda">Longitud de Onda (λ en nm):</label>
-              <div class="control-con-badge">
-                <input type="number" id="input-onda" min="350" max="950" step="1" value="660">
-                <div id="badge-color" class="indicador-color-led" title="Color visual aproximado del haz"></div>
-              </div>
-              <p class="ayuda-texto">Ej: 660 nm (rojo), 525 nm (verde), 465 nm (azul), 850 nm (IR cercano).</p>
-            </div>
-
-            <!-- Distancia d en cm (Carga manual / Slider) -->
-            <div class="grupo-control">
-              <label for="input-distancia">Distancia a la Superficie / Piel (d en cm):</label>
-              <div class="rango-con-input">
-                <input type="range" id="slider-distancia" min="0" max="20" step="0.1" value="2.0">
-                <input type="number" id="input-distancia" min="0" max="20" step="0.1" value="2.0">
-              </div>
-              <p class="ayuda-texto">0 cm = contacto directo; 2 cm = valor típico de tratamiento.</p>
-            </div>
-
-            <!-- Tiempo de aplicación t en segundos -->
-            <div class="grupo-control">
-              <label for="input-tiempo">Tiempo de Exposición (t en segundos):</label>
-              <input type="number" id="input-tiempo" min="1" max="7200" step="5" value="60">
-              <p class="ayuda-texto">60 segundos = 1 minuto de dosis de energía.</p>
-            </div>
+  <div class="fondo-gradiente">
+    <div class="contenedor-principal">
+      
+      <!-- ENCABEZADO CON BRANDING GT DATA CONSULTING -->
+      <header class="encabezado-gtdata">
+        <div class="brand-wrapper">
+          <img src="img/logo.png" alt="GT Data Consulting Logo" class="brand-logo">
+          <div class="brand-texto">
+            <h1>GT DATA <span class="text-primary">CONSULTING</span></h1>
+            <p>Laboratorio de Fotometría y Radiometría • Cálculos de Potencia y Dosis de LEDs (Clase 5)</p>
           </div>
-        </aside>
+        </div>
+        <div class="badge-gtdata">Pasos 1 y 2 • Evolutivo 1 • Evolutivo 2</div>
+      </header>
 
-        <!-- COLUMNA DERECHA: RESULTADOS Y VISUALIZADOR -->
-        <main class="columna-resultados">
+      <!-- NAVEGACIÓN POR PESTAÑAS (ESTILO GT DATA CONSULTING) -->
+      <nav class="nav-pestanas">
+        <button class="tab-boton activo" data-tab="tab-individual">
+          <span>📍</span> LED Individual (Pasos 1 y 2)
+        </button>
+        <button class="tab-boton" data-tab="tab-circuito">
+          <span>⚡</span> Conexión y Resistencia Limitadora (Evolutivo 1)
+        </button>
+        <button class="tab-boton" data-tab="tab-array">
+          <span>🔲</span> Array / Matriz de LEDs (Evolutivo 2)
+        </button>
+      </nav>
+
+      <!-- ======================================================== -->
+      <!-- PESTAÑA 1: LED INDIVIDUAL (PASOS 1 Y 2) -->
+      <!-- ======================================================== -->
+      <div id="tab-individual" class="tab-contenido activo">
+        <div class="panel-grid">
           
-          <div class="grid-metricas">
-            <div class="caja-metrica destacada">
-              <div class="metrica-etiqueta">Flujo Luminoso (Paso 1)</div>
-              <div id="out-lumenes" class="metrica-valor">-- lm</div>
-              <div class="metrica-sub">Lúmenes totales emitidos (Φ<sub>v</sub>)</div>
-            </div>
+          <!-- COLUMNA IZQUIERDA: ENTRADAS -->
+          <aside class="columna-entradas">
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Variables del LED Individual</span>
+                <span class="icono-paso">Entrada</span>
+              </div>
 
-            <div class="caja-metrica">
-              <div class="metrica-etiqueta">Potencia Radiante (Paso 2)</div>
-              <div id="out-potencia-mw" class="metrica-valor">-- mW</div>
-              <div id="out-potencia-w" class="metrica-sub">-- W ópticos reales (Φ<sub>e</sub>)</div>
-            </div>
+              <!-- Selector de Preset o Carga Manual -->
+              <div class="grupo-control">
+                <label for="select-preset">Predefinidos de la Clase o Manual:</label>
+                <select id="select-preset"></select>
+                <p class="ayuda-texto">Puedes seleccionar un LED típico o modificar libremente cualquier variable.</p>
+              </div>
 
-            <div class="caja-metrica aviso">
-              <div class="metrica-etiqueta">Irradiancia a Distancia d</div>
-              <div id="out-irradiancia" class="metrica-valor">-- mW/cm²</div>
-              <div class="metrica-sub">Intensidad radiante incidente (E)</div>
-            </div>
+              <!-- Intensidad en milicandelas (mcd) -->
+              <div class="grupo-control">
+                <label for="input-mcd">Intensidad Luminosa (I<sub>v</sub> en mcd):</label>
+                <input type="number" id="input-mcd" min="1" step="10" value="5000">
+                <p class="ayuda-texto">Ej: 5000 mcd para rojo 660 nm, 14000 mcd para azul 465 nm.</p>
+              </div>
 
-            <div class="caja-metrica">
-              <div class="metrica-etiqueta">Dosis de Energía (Fluencia)</div>
-              <div id="out-dosis" class="metrica-valor">-- J/cm²</div>
-              <div class="metrica-sub">Energía acumulada por cm² (H)</div>
-            </div>
-          </div>
+              <!-- Ángulo total de apertura (2θ) -->
+              <div class="grupo-control">
+                <label for="input-angulo">Ángulo Total de Apertura (2θ en grados):</label>
+                <div class="rango-con-input">
+                  <input type="range" id="slider-angulo" min="5" max="140" step="1" value="30">
+                  <input type="number" id="input-angulo" min="5" max="140" step="1" value="30">
+                </div>
+                <p class="ayuda-texto">Ángulo cónico de emisión (sale de la hoja de datos comercial).</p>
+              </div>
 
-          <!-- TARJETA: DESGLOSE PASO 1 Y PASO 2 -->
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Paso 1: Conversión de Milicandelas a Lúmenes</span>
-              <span class="icono-paso">Paso 1</span>
-            </div>
-            <div id="formula-p1" class="caja-formula"></div>
+              <!-- Longitud de onda (λ en nm) -->
+              <div class="grupo-control">
+                <label for="input-onda">Longitud de Onda (λ en nm):</label>
+                <div class="control-con-badge">
+                  <input type="number" id="input-onda" min="350" max="950" step="1" value="660">
+                  <div id="badge-color" class="indicador-color-led" title="Color visual aproximado del haz"></div>
+                </div>
+                <p class="ayuda-texto">Ej: 660 nm (rojo), 525 nm (verde), 465 nm (azul), 850 nm (IR cercano).</p>
+              </div>
 
-            <div class="tarjeta-titulo" style="margin-top: 20px;">
-              <span>Paso 2: Conversión de Lúmenes a Potencia Óptica</span>
-              <span class="icono-paso">Paso 2</span>
+              <!-- Distancia d en cm (Carga manual / Slider) -->
+              <div class="grupo-control">
+                <label for="input-distancia">Distancia a la Superficie / Piel (d en cm):</label>
+                <div class="rango-con-input">
+                  <input type="range" id="slider-distancia" min="0" max="20" step="0.1" value="2.0">
+                  <input type="number" id="input-distancia" min="0" max="20" step="0.1" value="2.0">
+                </div>
+                <p class="ayuda-texto">0 cm = contacto directo; 2 cm = valor típico de tratamiento.</p>
+              </div>
+
+              <!-- Tiempo de aplicación t en segundos -->
+              <div class="grupo-control">
+                <label for="input-tiempo">Tiempo de Exposición (t en segundos):</label>
+                <input type="number" id="input-tiempo" min="1" max="7200" step="5" value="60">
+                <p class="ayuda-texto">60 segundos = 1 minuto de dosis de energía.</p>
+              </div>
             </div>
-            <div id="formula-p2" class="caja-formula"></div>
+          </aside>
+
+          <!-- COLUMNA DERECHA: RESULTADOS Y VISUALIZADOR -->
+          <main class="columna-resultados">
             
-            <div class="tarjeta-titulo" style="margin-top: 20px;">
-              <span>Geometría del Haz e Irradiancia</span>
-              <span class="icono-paso">Geometría</span>
-            </div>
-            <div id="formula-geo" class="caja-formula"></div>
-          </div>
+            <div class="grid-metricas">
+              <div class="caja-metrica destacada">
+                <div class="metrica-etiqueta">Flujo Luminoso (Paso 1)</div>
+                <div id="out-lumenes" class="metrica-valor">-- lm</div>
+                <div class="metrica-sub">Lúmenes totales emitidos (Φ<sub>v</sub>)</div>
+              </div>
 
-          <!-- TARJETA: VISUALIZADOR GRÁFICO DEL CONO -->
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Visualización del Cono de Radiación y Huella en la Superficie</span>
-              <span class="icono-paso">Gráfico</span>
-            </div>
-            <div id="contenedor-svg" class="contenedor-grafico"></div>
-          </div>
+              <div class="caja-metrica">
+                <div class="metrica-etiqueta">Potencia Radiante (Paso 2)</div>
+                <div id="out-potencia-mw" class="metrica-valor">-- mW</div>
+                <div id="out-potencia-w" class="metrica-sub">-- W ópticos reales (Φ<sub>e</sub>)</div>
+              </div>
 
-          <!-- TABLA DE DOSIS -->
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Tabla de Dosificación Estimada en Función del Tiempo (Slide 19)</span>
-              <span class="icono-paso">Dosis</span>
-            </div>
-            <table class="tabla-dosis">
-              <thead>
-                <tr><th>Tiempo de Exposición</th><th>Dosis Resultante (J/cm²)</th></tr>
-              </thead>
-              <tbody id="tbody-tiempos"></tbody>
-            </table>
-          </div>
+              <div class="caja-metrica aviso">
+                <div class="metrica-etiqueta">Irradiancia a Distancia d</div>
+                <div id="out-irradiancia" class="metrica-valor">-- mW/cm²</div>
+                <div class="metrica-sub">Intensidad radiante incidente (E)</div>
+              </div>
 
-        </main>
+              <div class="caja-metrica">
+                <div class="metrica-etiqueta">Dosis de Energía (Fluencia)</div>
+                <div id="out-dosis" class="metrica-valor">-- J/cm²</div>
+                <div class="metrica-sub">Energía acumulada por cm² (H)</div>
+              </div>
+            </div>
+
+            <!-- TARJETA: DESGLOSE PASO 1 Y PASO 2 -->
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Paso 1: Conversión de Milicandelas a Lúmenes</span>
+                <span class="icono-paso">Paso 1</span>
+              </div>
+              <div id="formula-p1" class="caja-formula"></div>
+
+              <div class="tarjeta-titulo" style="margin-top: 20px;">
+                <span>Paso 2: Conversión de Lúmenes a Potencia Óptica</span>
+                <span class="icono-paso">Paso 2</span>
+              </div>
+              <div id="formula-p2" class="caja-formula"></div>
+              
+              <div class="tarjeta-titulo" style="margin-top: 20px;">
+                <span>Geometría del Haz e Irradiancia</span>
+                <span class="icono-paso">Geometría</span>
+              </div>
+              <div id="formula-geo" class="caja-formula"></div>
+            </div>
+
+            <!-- TARJETA: VISUALIZADOR GRÁFICO DEL CONO -->
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Visualización del Cono de Radiación y Huella en la Superficie</span>
+                <span class="icono-paso">Gráfico</span>
+              </div>
+              <div id="contenedor-svg" class="contenedor-grafico"></div>
+            </div>
+
+            <!-- TABLA DE DOSIS -->
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Tabla de Dosificación Estimada en Función del Tiempo (Slide 19)</span>
+                <span class="icono-paso">Dosis</span>
+              </div>
+              <table class="tabla-dosis">
+                <thead>
+                  <tr><th>Tiempo de Exposición</th><th>Dosis Resultante (J/cm²)</th></tr>
+                </thead>
+                <tbody id="tbody-tiempos"></tbody>
+              </table>
+            </div>
+
+          </main>
+        </div>
       </div>
-    </div>
 
-    <!-- ======================================================== -->
-    <!-- PESTAÑA 2: CONEXIÓN Y RESISTENCIA LIMITADORA (EVOLUTIVO 1) -->
-    <!-- ======================================================== -->
-    <div id="tab-circuito" class="tab-contenido">
-      <div class="panel-grid">
-        
-        <!-- ENTRADAS DEL CIRCUITO -->
-        <aside class="columna-entradas">
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Parámetros Eléctricos del Circuito</span>
-              <span class="icono-paso">Alimentación</span>
-            </div>
-
-            <div class="grupo-control">
-              <label for="input-vfuente">Tensión de Alimentación (V<sub>cc</sub> en Voltios):</label>
-              <input type="number" id="input-vfuente" min="1" max="48" step="0.5" value="12">
-              <p class="ayuda-texto">Tensión de la fuente DC (ej: 5V USB, 9V, 12V o 24V).</p>
-            </div>
-
-            <div class="grupo-control">
-              <label for="input-vf">Tensión Directa del LED (V<sub>f</sub> en Voltios):</label>
-              <input type="number" id="input-vf" min="1" max="6" step="0.1" value="2.0">
-              <p class="ayuda-texto">Caída en el LED: ~2.0V rojo/ámbar, ~3.2V azul/verde, ~1.4V IR.</p>
-            </div>
-
-            <div class="grupo-control">
-              <label for="input-if">Corriente Directa Deseada (I<sub>f</sub> en mA):</label>
-              <input type="number" id="input-if" min="1" max="1000" step="1" value="20">
-              <p class="ayuda-texto">20 mA para LEDs THT estándar de 5mm.</p>
-            </div>
-
-            <div class="grupo-control">
-              <label for="select-conexion">Configuración de Conexión:</label>
-              <select id="select-conexion">
-                <option value="individual">1 LED Individual con su Resistencia</option>
-                <option value="serie" selected>LEDs en Serie con una Resistencia</option>
-              </select>
-            </div>
-
-            <div id="fila-leds-serie-circuito" class="grupo-control">
-              <label for="input-leds-serie-circuito">Cantidad de LEDs en Serie (N):</label>
-              <input type="number" id="input-leds-serie-circuito" min="1" max="20" step="1" value="3">
-              <p class="ayuda-texto">Condición: N × V<sub>f</sub> debe ser menor a V<sub>cc</sub>.</p>
-            </div>
-
-            <div class="grupo-control">
-              <label for="select-serie-r">Serie Comercial de Resistencias:</label>
-              <select id="select-serie-r">
-                <option value="E12" selected>Serie E12 (Tolerancia 10% - Estándar)</option>
-                <option value="E24">Serie E24 (Tolerancia 5% - Precisión)</option>
-              </select>
-            </div>
-          </div>
-        </aside>
-
-        <!-- RESULTADOS DEL CIRCUITO -->
-        <main class="columna-resultados">
+      <!-- ======================================================== -->
+      <!-- PESTAÑA 2: CONEXIÓN Y RESISTENCIA LIMITADORA (EVOLUTIVO 1) -->
+      <!-- ======================================================== -->
+      <div id="tab-circuito" class="tab-contenido">
+        <div class="panel-grid">
           
-          <div class="grid-metricas">
-            <div class="caja-metrica destacada">
-              <div class="metrica-etiqueta">Resistencia Comercial</div>
-              <div id="out-r-comercial" class="metrica-valor">-- Ω</div>
-              <div id="out-r-teorica" class="metrica-sub">Teórica: -- Ω</div>
+          <!-- ENTRADAS DEL CIRCUITO -->
+          <aside class="columna-entradas">
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Parámetros Eléctricos del Circuito</span>
+                <span class="icono-paso">Alimentación</span>
+              </div>
+
+              <div class="grupo-control">
+                <label for="input-vfuente">Tensión de Alimentación (V<sub>cc</sub> en Voltios):</label>
+                <input type="number" id="input-vfuente" min="1" max="48" step="0.5" value="12">
+                <p class="ayuda-texto">Tensión de la fuente DC (ej: 5V USB, 9V, 12V o 24V).</p>
+              </div>
+
+              <div class="grupo-control">
+                <label for="input-vf">Tensión Directa del LED (V<sub>f</sub> en Voltios):</label>
+                <input type="number" id="input-vf" min="1" max="6" step="0.1" value="2.0">
+                <p class="ayuda-texto">Caída en el LED: ~2.0V rojo/ámbar, ~3.2V azul/verde, ~1.4V IR.</p>
+              </div>
+
+              <div class="grupo-control">
+                <label for="input-if">Corriente Directa Deseada (I<sub>f</sub> en mA):</label>
+                <input type="number" id="input-if" min="1" max="1000" step="1" value="20">
+                <p class="ayuda-texto">20 mA para LEDs THT estándar de 5mm.</p>
+              </div>
+
+              <div class="grupo-control">
+                <label for="select-conexion">Configuración de Conexión:</label>
+                <select id="select-conexion">
+                  <option value="individual">1 LED Individual con su Resistencia</option>
+                  <option value="serie" selected>LEDs en Serie con una Resistencia</option>
+                </select>
+              </div>
+
+              <div id="fila-leds-serie-circuito" class="grupo-control">
+                <label for="input-leds-serie-circuito">Cantidad de LEDs en Serie (N):</label>
+                <input type="number" id="input-leds-serie-circuito" min="1" max="20" step="1" value="3">
+                <p class="ayuda-texto">Condición: N × V<sub>f</sub> debe ser menor a V<sub>cc</sub>.</p>
+              </div>
+
+              <div class="grupo-control">
+                <label for="select-serie-r">Serie Comercial de Resistencias:</label>
+                <select id="select-serie-r">
+                  <option value="E12" selected>Serie E12 (Tolerancia 10% - Estándar)</option>
+                  <option value="E24">Serie E24 (Tolerancia 5% - Precisión)</option>
+                </select>
+              </div>
+            </div>
+          </aside>
+
+          <!-- RESULTADOS DEL CIRCUITO -->
+          <main class="columna-resultados">
+            
+            <div class="grid-metricas">
+              <div class="caja-metrica destacada">
+                <div class="metrica-etiqueta">Resistencia Comercial</div>
+                <div id="out-r-comercial" class="metrica-valor">-- Ω</div>
+                <div id="out-r-teorica" class="metrica-sub">Teórica: -- Ω</div>
+              </div>
+
+              <div class="caja-metrica">
+                <div class="metrica-etiqueta">Potencia en la Resistencia</div>
+                <div id="out-p-resistencia" class="metrica-valor">-- W</div>
+                <div id="out-p-comercial-r" class="metrica-sub">Comercial mínima: --</div>
+              </div>
+
+              <div class="caja-metrica">
+                <div class="metrica-etiqueta">Corriente Real Resultante</div>
+                <div id="out-if-real" class="metrica-valor">-- mA</div>
+                <div class="metrica-sub">Con valor de R comercial</div>
+              </div>
+
+              <div class="caja-metrica aviso">
+                <div class="metrica-etiqueta">Eficiencia Eléctrica</div>
+                <div id="out-eficiencia-circuito" class="metrica-valor">-- %</div>
+                <div class="metrica-sub">Potencia útil en LEDs vs Total</div>
+              </div>
             </div>
 
-            <div class="caja-metrica">
-              <div class="metrica-etiqueta">Potencia en la Resistencia</div>
-              <div id="out-p-resistencia" class="metrica-valor">-- W</div>
-              <div id="out-p-comercial-r" class="metrica-sub">Comercial mínima: --</div>
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Desglose de Ecuaciones de Conexión</span>
+                <span class="icono-paso">Leyes Eléctricas</span>
+              </div>
+              <div id="formula-circuito" class="caja-formula"></div>
             </div>
 
-            <div class="caja-metrica">
-              <div class="metrica-etiqueta">Corriente Real Resultante</div>
-              <div id="out-if-real" class="metrica-valor">-- mA</div>
-              <div class="metrica-sub">Con valor de R comercial</div>
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Esquema Eléctrico del Circuito</span>
+                <span class="icono-paso">Esquemático</span>
+              </div>
+              <div id="contenedor-svg-circuito" class="contenedor-grafico"></div>
             </div>
 
-            <div class="caja-metrica aviso">
-              <div class="metrica-etiqueta">Eficiencia Eléctrica</div>
-              <div id="out-eficiencia-circuito" class="metrica-valor">-- %</div>
-              <div class="metrica-sub">Potencia útil en LEDs vs Total</div>
-            </div>
-          </div>
-
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Desglose de Ecuaciones de Conexión</span>
-              <span class="icono-paso">Leyes Eléctricas</span>
-            </div>
-            <div id="formula-circuito" class="caja-formula"></div>
-          </div>
-
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Esquema Eléctrico del Circuito</span>
-              <span class="icono-paso">Esquemático</span>
-            </div>
-            <div id="contenedor-svg-circuito" class="contenedor-grafico"></div>
-          </div>
-
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
 
-    <!-- ======================================================== -->
-    <!-- PESTAÑA 3: ARRAY / MATRIZ DE LEDS (EVOLUTIVO 2) -->
-    <!-- ======================================================== -->
-    <div id="tab-array" class="tab-contenido">
-      <div class="panel-grid">
-        
-        <!-- ENTRADAS DEL ARRAY -->
-        <aside class="columna-entradas">
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Configuración del Panel / Matriz</span>
-              <span class="icono-paso">Matriz</span>
-            </div>
-
-            <div class="grupo-control">
-              <label for="input-filas">Cantidad de Filas:</label>
-              <input type="number" id="input-filas" min="1" max="30" step="1" value="4">
-            </div>
-
-            <div class="grupo-control">
-              <label for="input-columnas">Cantidad de Columnas:</label>
-              <input type="number" id="input-columnas" min="1" max="30" step="1" value="6">
-              <p class="ayuda-texto">Ej: 4 filas × 6 columnas = 24 LEDs en total.</p>
-            </div>
-
-            <div class="grupo-control">
-              <label for="input-pitch">Espaciado entre LEDs (Pitch en cm):</label>
-              <input type="number" id="input-pitch" min="0.5" max="10" step="0.1" value="1.5">
-              <p class="ayuda-texto">Distancia centro a centro entre LEDs contiguos.</p>
-            </div>
-
-            <div class="grupo-control">
-              <label for="input-dosis-objetivo">Dosis Terapéutica Objetivo (J/cm²):</label>
-              <input type="number" id="input-dosis-objetivo" min="0.5" max="50" step="0.5" value="4.0">
-              <p class="ayuda-texto">Dosis típica de fotobiomodulación (4 a 6 J/cm²).</p>
-            </div>
-          </div>
-        </aside>
-
-        <!-- RESULTADOS DEL ARRAY -->
-        <main class="columna-resultados">
+      <!-- ======================================================== -->
+      <!-- PESTAÑA 3: ARRAY / MATRIZ DE LEDS (EVOLUTIVO 2) -->
+      <!-- ======================================================== -->
+      <div id="tab-array" class="tab-contenido">
+        <div class="panel-grid">
           
-          <div class="grid-metricas">
-            <div class="caja-metrica destacada">
-              <div class="metrica-etiqueta">Potencia Óptica Total Array</div>
-              <div id="out-array-potencia-total" class="metrica-valor">-- mW</div>
-              <div id="out-array-total-leds" class="metrica-sub">-- LEDs</div>
+          <!-- ENTRADAS DEL ARRAY -->
+          <aside class="columna-entradas">
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Configuración del Panel / Matriz</span>
+                <span class="icono-paso">Matriz</span>
+              </div>
+
+              <div class="grupo-control">
+                <label for="input-filas">Cantidad de Filas:</label>
+                <input type="number" id="input-filas" min="1" max="30" step="1" value="4">
+              </div>
+
+              <div class="grupo-control">
+                <label for="input-columnas">Cantidad de Columnas:</label>
+                <input type="number" id="input-columnas" min="1" max="30" step="1" value="6">
+                <p class="ayuda-texto">Ej: 4 filas × 6 columnas = 24 LEDs en total.</p>
+              </div>
+
+              <div class="grupo-control">
+                <label for="input-pitch">Espaciado entre LEDs (Pitch en cm):</label>
+                <input type="number" id="input-pitch" min="0.5" max="10" step="0.1" value="1.5">
+                <p class="ayuda-texto">Distancia centro a centro entre LEDs contiguos.</p>
+              </div>
+
+              <div class="grupo-control">
+                <label for="input-dosis-objetivo">Dosis Terapéutica Objetivo (J/cm²):</label>
+                <input type="number" id="input-dosis-objetivo" min="0.5" max="50" step="0.5" value="4.0">
+                <p class="ayuda-texto">Dosis típica de fotobiomodulación (4 a 6 J/cm²).</p>
+              </div>
+            </div>
+          </aside>
+
+          <!-- RESULTADOS DEL ARRAY -->
+          <main class="columna-resultados">
+            
+            <div class="grid-metricas">
+              <div class="caja-metrica destacada">
+                <div class="metrica-etiqueta">Potencia Óptica Total Array</div>
+                <div id="out-array-potencia-total" class="metrica-valor">-- mW</div>
+                <div id="out-array-total-leds" class="metrica-sub">-- LEDs</div>
+              </div>
+
+              <div class="caja-metrica">
+                <div class="metrica-etiqueta">Lúmenes Totales del Array</div>
+                <div id="out-array-lumenes-totales" class="metrica-valor">-- lm</div>
+                <div class="metrica-sub">Flujo luminoso acumulado</div>
+              </div>
+
+              <div class="caja-metrica aviso">
+                <div class="metrica-etiqueta">Irradiancia Media del Panel</div>
+                <div id="out-array-irradiancia" class="metrica-valor">-- mW/cm²</div>
+                <div id="out-array-area-efectiva" class="metrica-sub">Área efectiva: -- cm²</div>
+              </div>
+
+              <div class="caja-metrica destacada">
+                <div class="metrica-etiqueta">Tiempo para Dosis Objetivo</div>
+                <div id="out-array-tiempo-dosis" class="metrica-valor">-- s</div>
+                <div id="out-array-aceleracion" class="metrica-sub">--</div>
+              </div>
             </div>
 
-            <div class="caja-metrica">
-              <div class="metrica-etiqueta">Lúmenes Totales del Array</div>
-              <div id="out-array-lumenes-totales" class="metrica-valor">-- lm</div>
-              <div class="metrica-sub">Flujo luminoso acumulado</div>
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Fórmulas de Acumulación y Dosimetría de Matriz</span>
+                <span class="icono-paso">Array Math</span>
+              </div>
+              <div id="formula-array" class="caja-formula"></div>
             </div>
 
-            <div class="caja-metrica aviso">
-              <div class="metrica-etiqueta">Irradiancia Media del Panel</div>
-              <div id="out-array-irradiancia" class="metrica-valor">-- mW/cm²</div>
-              <div id="out-array-area-efectiva" class="metrica-sub">Área efectiva: -- cm²</div>
+            <div class="tarjeta">
+              <div class="tarjeta-titulo">
+                <span>Visualización de la Matriz y Solapamiento de Conos</span>
+                <span class="icono-paso">Panel SVG</span>
+              </div>
+              <div id="contenedor-svg-matriz" class="contenedor-grafico"></div>
             </div>
 
-            <div class="caja-metrica destacada">
-              <div class="metrica-etiqueta">Tiempo para Dosis Objetivo</div>
-              <div id="out-array-tiempo-dosis" class="metrica-valor">-- s</div>
-              <div id="out-array-aceleracion" class="metrica-sub">--</div>
-            </div>
-          </div>
-
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Fórmulas de Acumulación y Dosimetría de Matriz</span>
-              <span class="icono-paso">Array Math</span>
-            </div>
-            <div id="formula-array" class="caja-formula"></div>
-          </div>
-
-          <div class="tarjeta">
-            <div class="tarjeta-titulo">
-              <span>Visualización de la Matriz y Solapamiento de Conos</span>
-              <span class="icono-paso">Panel SVG</span>
-            </div>
-            <div id="contenedor-svg-matriz" class="contenedor-grafico"></div>
-          </div>
-
-        </main>
+          </main>
+        </div>
       </div>
+
+      <!-- FOOTER GT DATA CONSULTING -->
+      <footer class="pie-pagina-gtdata">
+        <p><b>GT Data Consulting</b> • Transformación Digital e Inteligencia Artificial</p>
+        <p>© 2026 GT Data Consulting. Todos los derechos reservados. • Hecho con precisión por mentes y máquinas.</p>
+        <p class="sub-texto">Compatible con Google Chrome, Mozilla Firefox, Brave y Microsoft Edge • Responsive Desktop y Tablet</p>
+      </footer>
+
     </div>
-
-    <!-- PIE DE PÁGINA -->
-    <footer class="pie-pagina">
-      <p>Cálculo de Radiancia, Lúmenes y Arrays de LEDs • Compatible con Google Chrome, Mozilla Firefox, Brave y Microsoft Edge • Responsive Desktop y Tablet</p>
-    </footer>
-
   </div>
 
   <!-- Scripts modulares del proyecto -->
