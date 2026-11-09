@@ -79,3 +79,4 @@ function actualizarVisualizador(datos) {
 
   contenedor.innerHTML = svgContent;
 }
+

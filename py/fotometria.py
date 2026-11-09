@@ -176,3 +176,4 @@ if __name__ == "__main__":
     
     print(f"Flujo luminoso calculado: {lumenes:.4f} lm (Esperado: ~1.07 lm)")
     print(f"Potencia óptica calculada: {potencia_mw:.2f} mW (Esperado: ~25.7 mW)")
+

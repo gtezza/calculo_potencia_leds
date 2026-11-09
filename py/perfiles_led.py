@@ -57,3 +57,4 @@ PERFILES_LEDS: Dict[str, Dict[str, Any]] = {
         "descripcion": "Baja respuesta visual humana, alta energía fotónica.",
     },
 }
+

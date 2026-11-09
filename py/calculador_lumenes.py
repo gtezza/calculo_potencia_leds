@@ -130,3 +130,4 @@ if __name__ == "__main__":
         tiempo_segundos=60.0,
     )
     imprimir_informe_led(res)
+

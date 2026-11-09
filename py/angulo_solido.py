@@ -91,3 +91,4 @@ if __name__ == "__main__":
     print(f"Ángulo sólido: {omega:.4f} sr (Esperado en clase: ~0.214 sr)")
     print(f"Radio a 2 cm: {radio:.4f} cm (Esperado en clase: ~0.536 cm)")
     print(f"Área a 2 cm: {area:.4f} cm² (Esperado en clase: ~0.90 cm²)")
+

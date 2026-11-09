@@ -1,49 +1,42 @@
 # Guía de Uso y Verificación (Walkthrough)
 
 ## 1. Introducción
-Esta guía explica cómo ejecutar, probar y utilizar el sistema de cálculo de lúmenes y potencia óptica de LEDs, tanto en su versión por consola (Python) como a través del Dashboard Web interactivo.
+Esta guía explica cómo ejecutar, probar y aprovechar el sistema de cálculo fotométrico, radiométrico, de resistencias limitadoras y de arrays de LEDs.
 
 ---
 
-## 2. Ejecución de los Módulos en Python
+## 2. Ejecución en Python
 
-### Modo Interactivo de Pasos 1 y 2
-Para ejecutar el cálculo interactivo donde puedes ingresar manualmente la intensidad (mcd), el ángulo total de apertura, la longitud de onda y la distancia:
+### Módulos Granulares
+- **Pasos 1 y 2 interactivos:**
+  ```powershell
+  python py/pasos_1_y_2.py
+  ```
+- **Cálculo de Conexión y Resistencia Limitadora (Evolutivo 1):**
+  ```powershell
+  python py/resistencia_limitadora.py
+  ```
+- **Cálculo de Array / Matriz de LEDs (Evolutivo 2):**
+  ```powershell
+  python py/array_leds.py
+  ```
+- **Ejecución de Pruebas Automatizadas:**
+  ```powershell
+  python py/pruebas_calculos.py
+  ```
+  *Salida esperada:*
+  ```
+  .....
+  ----------------------------------------------------------------------
+  Ran 5 tests in 0.001s
 
-```powershell
-python py/pasos_1_y_2.py
-```
-
-Al iniciarse, te permitirá:
-1. **Cargar variables a mano:** Escribe directamente los valores deseados (por ejemplo: `5000` mcd, `30` grados, `660` nm y `2.0` cm).
-2. **Usar presets de la Clase 5:** Selecciona entre los LEDs predefinidos (rojo 660 nm, azul 465 nm, verde 525 nm, etc.) y solo modifica la distancia si lo deseas.
-
-### Ejecución de Pruebas Automatizadas
-Para verificar que todas las fórmulas coinciden con los ejercicios de la presentación:
-
-```powershell
-python py/pruebas_calculos.py
-```
-*Salida esperada:*
-```
-..
-----------------------------------------------------------------------
-Ran 2 tests in 0.000s
-
-OK
-```
+  OK
+  ```
 
 ---
 
 ## 3. Uso del Dashboard Web Interactivo
-El dashboard [`index.html`](file:///c:/Proyectos/Calculo%20de%20radiancia%20de%20LEDs/index.html) puede abrirse directamente en cualquiera de los navegadores soportados:
-- **Google Chrome**
-- **Mozilla Firefox**
-- **Brave**
-- **Microsoft Edge**
-
-### Cómo abrirlo en tu navegador favorito:
-Puedes hacer doble clic en el archivo `index.html` en el explorador de Windows, o ejecutar en PowerShell:
+Abre [`index.html`](file:///c:/Proyectos/Calculo%20de%20radiancia%20de%20LEDs/index.html) en tu navegador favorito:
 
 ```powershell
 # En Microsoft Edge
@@ -56,21 +49,30 @@ Start-Process chrome.exe "c:\Proyectos\Calculo de radiancia de LEDs\index.html"
 Start-Process brave.exe "c:\Proyectos\Calculo de radiancia de LEDs\index.html"
 ```
 
-### Funcionalidades del Dashboard:
-1. **Selector de Presets:** Carga automáticamente los parámetros estándar de los LEDs de la Clase 5.
-2. **Entrada Manual en Tiempo Real:** Modifica cualquier campo (mcd, ángulo con slider, longitud de onda, distancia con slider y tiempo de exposición).
-3. **Métricas en Vivo:** Actualización inmediata de Flujo Luminoso (lúmenes), Potencia Óptica (mW), Irradiancia ($\text{mW/cm}^2$) y Dosis ($\text{J/cm}^2$).
-4. **Desglose Matemático Paso a Paso:** Muestra las fórmulas con los números reemplazados en vivo tal como se enseñó en clase.
-5. **Gráfico Vectorial SVG Dinámico:** El haz de luz, su ángulo, la distancia $d$ y el radio de la huella $r$ se redibujan en tiempo real con el color exacto de la longitud de onda.
-6. **Diseño Responsive:** Totalmente funcional y cómodo en pantallas de escritorio y tablets (768px a 1024px).
+### Funcionalidades por Pestaña:
+1. **Pestaña 1: LED Individual (Pasos 1 y 2):**
+   - Presets de la clase o entrada manual de $I_v$ (mcd), ángulo ($2\theta$), longitud de onda ($\lambda$), distancia ($d$) y tiempo ($t$).
+   - Flujo luminoso ($\Phi_v$), potencia radiante ($\Phi_e$), irradiancia media y dosis.
+   - Cono luminoso SVG en tiempo real.
+2. **Pestaña 2: Conexión y Resistencia Limitadora (Evolutivo 1):**
+   - Configura $V_{CC}$ (ej: 12V), $V_F$ (2.0V), $I_F$ (20 mA) y cantidad de LEDs en serie.
+   - Elige entre series comerciales E12 y E24.
+   - Obtén el valor comercial exacto, potencia recomendada con factor de seguridad de 1.75x, corriente real y eficiencia.
+   - Diagrama esquemático vectorial SVG del circuito.
+3. **Pestaña 3: Array / Matriz de LEDs (Evolutivo 2):**
+   - Configura matriz de filas $\times$ columnas (ej: $4 \times 6 = 24$ LEDs) y espaciado (pitch).
+   - Calcula la potencia óptica acumulada en Watts/mW y lúmenes totales.
+   - Evalúa si los conos de luz se solapan a la distancia $d$.
+   - Calcula el tiempo de tratamiento acelerado para alcanzar una dosis objetivo (ej: 4 J/cm²).
+   - Visualizador de la cuadrícula con halos de radiación interactivos.
 
 ---
 
 ## 4. Subida y Sincronización con Git
-Para versionar los archivos y artefactos en el repositorio remoto configurado (`https://github.com/gtezza/calculo_potencia_leds.git`):
+Para enviar las actualizaciones al repositorio remoto (`https://github.com/gtezza/calculo_potencia_leds.git`):
 
 ```powershell
 git add .
-git commit -m "Implementacion modular de Pasos 1 y 2 y Dashboard Web de Calculo de Lumenes y Potencia"
+git commit -m "Evolutivos 1 y 2: Calculo de conexion, resistencia limitadora E12/E24 y Array de LEDs con superposicion"
 git push origin main
 ```

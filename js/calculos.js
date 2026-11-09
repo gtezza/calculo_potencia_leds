@@ -212,3 +212,4 @@ function calcularIrradianciaYDosis(potenciaOpticaMw, areaCm2, tiempoSegundos) {
     tablaDosis
   };
 }
+

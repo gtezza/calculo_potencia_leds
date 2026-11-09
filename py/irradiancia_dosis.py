@@ -69,3 +69,4 @@ if __name__ == "__main__":
     
     print(f"Irradiancia calculada: {irradiancia:.2f} mW/cm² (Esperado: ~28.5 mW/cm²)")
     print(f"Dosis a 60s: {dosis:.2f} J/cm² (Esperado: ~1.71 J/cm²)")
+
