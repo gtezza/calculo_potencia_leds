@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de Lúmenes y Potencia Emitida por LEDs</title>
+  <!-- Estilos del proyecto (Compatible con Chrome, Firefox, Brave y Edge) -->
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="contenedor-principal">
+    
+    <!-- ENCABEZADO PRINCIPAL -->
+    <header class="encabezado">
+      <div>
+        <h1>
+          <span>💡</span> Cálculo de Lúmenes y Potencia Radiante de LEDs
+        </h1>
+        <p>Conversión fotométrica y radiométrica para aplicaciones de fototerapia y fotobiomodulación (Clase 5)</p>
+      </div>
+      <div class="badge-modulo">Módulo: Pasos 1 y 2</div>
+    </header>
+
+    <div class="panel-grid">
+      
+      <!-- COLUMNA IZQUIERDA: CONTROLES Y ENTRADA MANUAL DE VARIABLES -->
+      <aside class="columna-entradas">
+        <div class="tarjeta">
+          <div class="tarjeta-titulo">
+            <span>Variables del LED y Tratamiento</span>
+            <span class="icono-paso">Entrada</span>
+          </div>
+
+          <!-- Selector de Preset o Carga Manual -->
+          <div class="grupo-control">
+            <label for="select-preset">Predefinidos de la Clase o Manual:</label>
+            <select id="select-preset">
+              <!-- Se puebla dinámicamente desde js/interfaz.js -->
+            </select>
+            <p class="ayuda-texto">Puedes seleccionar un LED típico o modificar libremente cualquier variable.</p>
+          </div>
+
+          <!-- Intensidad en milicandelas (mcd) -->
+          <div class="grupo-control">
+            <label for="input-mcd">Intensidad Luminosa (I<sub>v</sub> en mcd):</label>
+            <input type="number" id="input-mcd" min="1" step="10" value="5000">
+            <p class="ayuda-texto">Ej: 5000 mcd para rojo 660 nm, 14000 mcd para azul 465 nm.</p>
+          </div>
+
+          <!-- Ángulo total de apertura (2θ) -->
+          <div class="grupo-control">
+            <label for="input-angulo">Ángulo Total de Apertura (2θ en grados):</label>
+            <div class="rango-con-input">
+              <input type="range" id="slider-angulo" min="5" max="140" step="1" value="30">
+              <input type="number" id="input-angulo" min="5" max="140" step="1" value="30">
+            </div>
+            <p class="ayuda-texto">Ángulo cónico de emisión (sale de la hoja de datos comercial).</p>
+          </div>
+
+          <!-- Longitud de onda (λ en nm) -->
+          <div class="grupo-control">
+            <label for="input-onda">Longitud de Onda (λ en nm):</label>
+            <div class="control-con-badge">
+              <input type="number" id="input-onda" min="350" max="950" step="1" value="660">
+              <div id="badge-color" class="indicador-color-led" title="Color visual aproximado del haz"></div>
+            </div>
+            <p class="ayuda-texto">Ej: 660 nm (rojo), 525 nm (verde), 465 nm (azul), 850 nm (IR cercano).</p>
+          </div>
+
+          <!-- Distancia d en cm (Carga manual / Slider) -->
+          <div class="grupo-control">
+            <label for="input-distancia">Distancia a la Superficie / Piel (d en cm):</label>
+            <div class="rango-con-input">
+              <input type="range" id="slider-distancia" min="0" max="20" step="0.1" value="2.0">
+              <input type="number" id="input-distancia" min="0" max="20" step="0.1" value="2.0">
+            </div>
+            <p class="ayuda-texto">0 cm = contacto directo; 2 cm = valor típico de tratamiento.</p>
+          </div>
+
+          <!-- Tiempo de aplicación t en segundos -->
+          <div class="grupo-control">
+            <label for="input-tiempo">Tiempo de Exposición (t en segundos):</label>
+            <input type="number" id="input-tiempo" min="1" max="7200" step="5" value="60">
+            <p class="ayuda-texto">60 segundos = 1 minuto de dosis de energía.</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- COLUMNA DERECHA: RESULTADOS, PASO 1, PASO 2 Y VISUALIZADOR -->
+      <main class="columna-resultados">
+        
+        <!-- MÉTRICAS PRINCIPALES -->
+        <div class="grid-metricas">
+          <div class="caja-metrica destacada">
+            <div class="metrica-etiqueta">Flujo Luminoso (Paso 1)</div>
+            <div id="out-lumenes" class="metrica-valor">-- lm</div>
+            <div class="metrica-sub">Lúmenes totales emitidos (Φ<sub>v</sub>)</div>
+          </div>
+
+          <div class="caja-metrica">
+            <div class="metrica-etiqueta">Potencia Radiante (Paso 2)</div>
+            <div id="out-potencia-mw" class="metrica-valor">-- mW</div>
+            <div id="out-potencia-w" class="metrica-sub">-- W ópticos reales (Φ<sub>e</sub>)</div>
+          </div>
+
+          <div class="caja-metrica aviso">
+            <div class="metrica-etiqueta">Irradiancia a Distancia d</div>
+            <div id="out-irradiancia" class="metrica-valor">-- mW/cm²</div>
+            <div class="metrica-sub">Intensidad radiante incidente (E)</div>
+          </div>
+
+          <div class="caja-metrica">
+            <div class="metrica-etiqueta">Dosis de Energía (Fluencia)</div>
+            <div id="out-dosis" class="metrica-valor">-- J/cm²</div>
+            <div class="metrica-sub">Energía acumulada por cm² (H)</div>
+          </div>
+        </div>
+
+        <!-- TARJETA: DESGLOSE PASO 1 Y PASO 2 -->
+        <div class="tarjeta">
+          <div class="tarjeta-titulo">
+            <span>Paso 1: Conversión de Milicandelas a Lúmenes</span>
+            <span class="icono-paso">Paso 1</span>
+          </div>
+          <div id="formula-p1" class="caja-formula"></div>
+
+          <div class="tarjeta-titulo" style="margin-top: 20px;">
+            <span>Paso 2: Conversión de Lúmenes a Potencia Óptica</span>
+            <span class="icono-paso">Paso 2</span>
+          </div>
+          <div id="formula-p2" class="caja-formula"></div>
+          
+          <div class="tarjeta-titulo" style="margin-top: 20px;">
+            <span>Geometría del Haz e Irradiancia</span>
+            <span class="icono-paso">Geometría</span>
+          </div>
+          <div id="formula-geo" class="caja-formula"></div>
+        </div>
+
+        <!-- TARJETA: VISUALIZADOR GRÁFICO EN VIVO -->
+        <div class="tarjeta">
+          <div class="tarjeta-titulo">
+            <span>Visualización del Cono de Radiación y Huella en la Superficie</span>
+            <span class="icono-paso">Gráfico</span>
+          </div>
+          <div id="contenedor-svg" class="contenedor-grafico">
+            <!-- Renderizado dinámico en SVG -->
+          </div>
+        </div>
+
+        <!-- TARJETA: TABLA DE DOSIFICACIÓN POR TIEMPOS -->
+        <div class="tarjeta">
+          <div class="tarjeta-titulo">
+            <span>Tabla de Dosificación Estimada en Función del Tiempo (Slide 19)</span>
+            <span class="icono-paso">Dosis</span>
+          </div>
+          <table class="tabla-dosis">
+            <thead>
+              <tr>
+                <th>Tiempo de Exposición</th>
+                <th>Dosis Resultante (J/cm²)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-tiempos">
+              <!-- Se llena reactivamente -->
+            </tbody>
+          </table>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="pie-pagina">
+      <p>Cálculo de Radiancia y Lúmenes de LEDs • Compatible con Google Chrome, Mozilla Firefox, Brave y Microsoft Edge • Diseño Responsive</p>
+    </footer>
+
+  </div>
+
+  <!-- Scripts modulares del proyecto -->
+  <script src="js/calculos.js"></script>
+  <script src="js/visualizador.js"></script>
+  <script src="js/interfaz.js"></script>
+</body>
+</html>
